@@ -13,7 +13,13 @@
 		<label for="password">Password</label>
 		<input type="text" v-model="password" id="password">
     </div>
-    <button @click="goToLogin">To signup</button>
+
+    <!-- <input type="text" v-model="connexion" id="connexion"> -->
+    <div><button @click="goToHome">To log in</button></div>
+    <div>
+    <span>You don't have an account yet? </span>
+    <button @click="goToSignup">Please signup</button>
+    </div>
 </template>
   
 <script>
@@ -21,19 +27,25 @@ export default {
 
   data() {
     return {
-     msg: 'Create an account',
+     msg: 'Connexion',
       email: '', 
-      password: ''
+      password: '',
+    //   connexion: 'To log in'
     }
-  }, 
-  methods: {
-    goToLogin(){
+  },
+  methods : {
+    goToHome(){
         if (this.email && this.password){
-        this.$router.push({ name: 'login' })
+        this.$router.push({ name: 'home' })
         }
         else {
             this.$router.push({ name: 'signup' }) 
         }
+    },
+    goToSignup(){
+        
+            this.$router.push({ name: 'signup' }) 
+      
     }
   }
 }
