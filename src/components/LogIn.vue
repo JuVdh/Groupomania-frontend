@@ -30,6 +30,7 @@ export default {
      msg: 'Connexion',
       email: '', 
       password: '',
+      token:''
     //   connexion: 'To log in'
     }
   },
@@ -47,6 +48,9 @@ export default {
             this.$router.push({ name: 'signup' }) 
       
     }
+  },
+  mounted() {
+    this.$session.set("token", this.token)
   }
 }
 </script>

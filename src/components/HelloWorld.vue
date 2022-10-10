@@ -14,12 +14,18 @@ export default {
   data() {
     return {
      posts: []
+    
     }
   }, 
   
   created(){
-            fetch("http://localhost:3000/api/posts")
-              
+    
+            fetch("http://localhost:3000/api/posts",{
+              method: "GET",
+              headers: {
+               'Authorization': 'Bearer'+''+this.$session.get("token")
+              }
+            })
             .then(res=> res.json())
             .then(res => {this.posts=res})
               
