@@ -6,11 +6,27 @@
 
 <script>
 export default {
-  name: 'HelloWorld',
-  props: {
-    msg: String
-  }
-}
+  // name: 'HelloWorld',
+  // props: {
+  //   msg: String
+  // }
+
+  data() {
+    return {
+     posts: []
+    }
+  }, 
+  
+  created(){
+            fetch("http://localhost:3000/api/posts")
+              
+            .then(res=> res.json())
+            .then(res => {this.posts=res})
+              
+            }
+        } 
+  
+
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

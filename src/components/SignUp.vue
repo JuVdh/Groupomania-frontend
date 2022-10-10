@@ -13,7 +13,7 @@
 		<label for="password">Password</label>
 		<input type="text" v-model="password" id="password">
     </div>
-    <button @click="goToLogin">To signup</button>
+    <button @click="signUp">To signup</button>
 </template>
   
 <script>
@@ -27,17 +27,36 @@ export default {
     }
   }, 
   methods: {
-    goToLogin(){
+   
+    signUp(){
+        let user = {
+            email: this.email,
+            password: this.password
+         };
+       
         if (this.email && this.password){
-        this.$router.push({ name: 'login' })
-        }
-        else {
-            this.$router.push({ name: 'signup' }) 
-        }
-    }
+           
+            fetch("http://localhost:3000/api/auth/signup", {
+                method: "POST",
+                headers: {
+                'Accept': 'application/json', 
+                'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(user)
+            })
+            .then(res=> {
+               
+                if (res.ok) {
+                   return this.$router.push({ name: 'login' })
+                }
+            })
+        } 
+    }  
   }
 }
+           
 </script>
+
   
   <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
