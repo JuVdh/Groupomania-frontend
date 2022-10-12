@@ -1,6 +1,7 @@
 <template>
   <div class="hello">
-    <h1>{{ msg }}</h1>
+    <h1>{{ posts }}</h1>
+   
   </div>
 </template>
 
@@ -14,16 +15,18 @@ export default {
   data() {
     return {
      posts: []
+     //token: JSON.parse(sessionStorage.getItem("token"))
     
     }
-  }, 
+  },
   
   created(){
-    
+            //let token= JSON.parse(sessionStorage.getItem("token"));
             fetch("http://localhost:3000/api/posts",{
               method: "GET",
               headers: {
-               'Authorization': 'Bearer'+''+this.$session.get("token")
+              //  'Authorization': 'Bearer'+''+this.$session.get("token")
+              'Authorization': 'Bearer'+''+JSON.parse(sessionStorage.getItem("token"))
               }
             })
             .then(res=> res.json())

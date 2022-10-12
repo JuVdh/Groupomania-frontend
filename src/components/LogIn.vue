@@ -15,29 +15,78 @@
     </div>
 
     <!-- <input type="text" v-model="connexion" id="connexion"> -->
-    <div><button @click="goToHome">To log in</button></div>
+    <div><button @click="logIn">To log in</button></div>
     <div>
     <span>You don't have an account yet? </span>
     <button @click="goToSignup">Please signup</button>
     </div>
 </template>
-  
+
 <script>
+    export default {
+    
+      data() {
+        return {
+         msg: 'Connexion',
+          email: '', 
+          password: '',
+          token:''
+        }
+      }, 
+      methods: {
+       
+        logIn(){
+            let user = {
+                email: this.email,
+                password: this.password, 
+                token: this.token
+             };
+           
+            if (this.email && this.password){
+               
+                fetch("http://localhost:3000/api/auth/login", {
+                    method: "POST",
+                    headers: {
+                    'Accept': 'application/json', 
+                    'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(user)
+                })
+                .then(res=> {
+                    sessionStorage.setItem("token", res.body.token)
+                    if (res.ok) {
+                        
+                       return this.$router.push({ name: 'home' })
+                    }
+                })
+            } 
+        }  
+      }
+    }
+               
+    </script>
+
+<!-- <script>
 export default {
 
   data() {
     return {
      msg: 'Connexion',
       email: '', 
-      password: '',
-      token:''
-    //   connexion: 'To log in'
+      password: ''
+     
+ 
     }
   },
   methods : {
     goToHome(){
         if (this.email && this.password){
+        //sessionStorage.setItem("tokenAccess", this.token.value);
         this.$router.push({ name: 'home' })
+        // .then (response => {
+        //     sessionStorage.setItem("token", response.$token.value);
+            
+        // })
         }
         else {
             this.$router.push({ name: 'signup' }) 
@@ -49,11 +98,13 @@ export default {
       
     }
   },
-  mounted() {
-    this.$session.set("token", this.token)
+  created() {
+    //this.$session.set("token", this.token)
+    // sessionStorage.setItem("token", this.$data.token);
+    sessionStorage.setItem("token", this.token);
   }
 }
-</script>
+</script> -->
   
   <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
