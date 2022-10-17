@@ -6,12 +6,12 @@
     <div>
 		<label for="email">Email</label>
 		<input type="text" v-model="email" id="email">
-        <span v-if="email">Votre adresse email est : {{ email }}</span>
+        <!-- <span v-if="email">Votre adresse email est : {{ email }}</span> -->
 	</div>
     
     <div>
 		<label for="password">Password</label>
-		<input type="text" v-model="password" id="password">
+		<input type="password" v-model="password" id="password">
     </div>
 
     <!-- <input type="text" v-model="connexion" id="connexion"> -->
@@ -19,6 +19,7 @@
     <div>
     <span>You don't have an account yet? </span>
     <button @click="goToSignup">Please signup</button>
+    <router-link to="signup">Please signup</router-link>
     </div>
 </template>
 
@@ -29,8 +30,8 @@
         return {
          msg: 'Connexion',
           email: '', 
-          password: '',
-          token:''
+          password: ''
+        //   token:''
         }
       }, 
       methods: {
@@ -38,9 +39,11 @@
         logIn(){
             let user = {
                 email: this.email,
-                password: this.password, 
-                token: this.token
+                password: this.password
+                // token: this.token
              };
+
+             
            
             if (this.email && this.password){
                
@@ -53,12 +56,20 @@
                     body: JSON.stringify(user)
                 })
                 .then(res=> {
-                    sessionStorage.setItem("token", res.body.token)
+                   
                     if (res.ok) {
+                        return res.json()
                         
-                       return this.$router.push({ name: 'home' })
+                    //     dataToken.push(res.body['token']);
+                    
                     }
                 })
+                .then(data=>{
+                    console.log(data);
+                    sessionStorage.setItem('data-token', JSON.stringify(data.token));
+                       return this.$router.push({ name: 'home' })
+                })
+               
             } 
         }  
       }

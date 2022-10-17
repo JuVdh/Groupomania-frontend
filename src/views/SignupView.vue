@@ -1,6 +1,6 @@
 <template>
     <div class="signup">
-      <img alt="Vue logo" src="../assets/1653474647318_icon-left-font.png">
+      <!-- <img alt="Vue logo" src="../assets/1653474647318_icon-left-font.png"> -->
       <!-- <SignUp msg="Create an account"/> -->
       <SignUp/>
     </div>

@@ -11,7 +11,7 @@
     
     <div>
 		<label for="password">Password</label>
-		<input type="text" v-model="password" id="password">
+		<input type="password" v-model="password" id="password">
     </div>
     <button @click="signUp">To signup</button>
 </template>
