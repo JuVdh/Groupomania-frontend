@@ -3,24 +3,22 @@
       <h1>{{ msg }}</h1>
      
     </div>
-    <!-- <form id="postForm">  -->
-      
+         
     <div>
 		<label for="title">Title</label>
-		<input type="text" v-model="title" id="title">
+		<input type="text" v-model="title" name="title" id="title">
     </div>
     
     <div>
 		<label for="content">Text</label>
-		<input type="text" v-model="content" id="content">
+		<textarea type="text" v-model="content" name="content" id="content"></textarea>
     </div>
     <div>
-        <!-- <label for="file">Choose a file</label> -->
-        <input type="file" @change="uploadFile" ref="file">
+        <input type="file" name="image" id="image" accept="images/*">
+        <!-- <input type="file" @change="uploadFile" ref="file"> -->
         <button @click="createPost">Upload!</button>
     </div>
    
-<!-- </form>   -->
 </template>
 
 <script>
@@ -33,19 +31,20 @@ export default {
        msg: 'Create your message',
         title: '', 
         content: '',
-        attachment: null
+        image: null
      
       }
     }, 
     methods: {
 
-    uploadFile() {
-        this.Attachments = this.$refs.file.files[0];
-      },
-      
+    // uploadFile() {
+    //     this.Images = this.$refs.file.files[0];
+    //   },
+
     createPost() {
+        let input=document.getElementById('image');
         const formData = new FormData();
-        formData.append('attachment', this.Attachments);
+        formData.append('image', input.files[0]);
         formData.append('title', this.title);
         formData.append('content', this.content);
         
@@ -53,8 +52,6 @@ export default {
                   method: "POST",
                   headers: {
                   'Accept': 'application/json', 
-                  'Content-Type': 'multipart/form-data',
-                //   'Content-Type': 'application/json',
                   'Authorization': "Bearer " + JSON.parse(sessionStorage.getItem("data-token"))
                   },
                   

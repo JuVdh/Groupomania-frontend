@@ -12,7 +12,10 @@
   
   export default {
     name: 'OpenView',
-    
+    // props: {
+    //     newTitle:String,
+    //     newContent:String
+    // },
     components: {
       OpenPost
     }

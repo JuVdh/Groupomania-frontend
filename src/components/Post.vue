@@ -1,13 +1,14 @@
 <template>
     <div class="postList">
-        <router-link to="openPost">
+        <router-link :to="{ name: 'openPost', params: { postId: post.id }}">
         <div class="postCard">
             <div class="title">
                 {{post.title}}
             </div>
-            <!-- <div class="image">
-                {{post.image}}
-            </div> -->
+            <div class="image">
+                <!-- {{post.attachment}} -->
+                <img :src=post.attachment />
+            </div>
             <div class="content">
             {{post.content}}
             </div>

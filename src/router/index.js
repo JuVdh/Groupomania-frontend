@@ -27,7 +27,7 @@ const routes = [
     component: NewView
   },
   {
-    path: '/openPost',
+    path: '/openPost/:postId',
     name: 'openPost',
     component: OpenView
   }
