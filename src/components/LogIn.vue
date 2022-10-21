@@ -65,8 +65,14 @@
                     }
                 })
                 .then(data=>{
-                    console.log(data);
+                    // let data2=JSON.parse(data);
+                    // console.log(data2.userId);
+
+                    // console.log(JSON.stringify(data.userId));
+                    // sessionStorage.setItem('data-token', JSON.stringify(data.token));
                     sessionStorage.setItem('data-token', JSON.stringify(data.token));
+                    sessionStorage.setItem('data-userId', JSON.stringify(data.userId));
+                    sessionStorage.setItem('data-isAdmin', JSON.stringify(data.isAdmin));
                        return this.$router.push({ name: 'home' })
                 })
                
