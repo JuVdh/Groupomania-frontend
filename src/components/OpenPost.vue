@@ -3,25 +3,32 @@
          <h1>{{ msg }}</h1>
         
        </div>
-       <div>
-           <label for="title">Title</label>
+       <div class="postContent">
+        <div class="flexContent">
+            <img :src=this.post.attachment />
+            <div><input type="file" name="image" id="image" accept="images/*"></div>
+            <div>
+                <button @click="ModifyImage" v-if = "userId==this.post.userId || isAdmin">Change the image</button>
+                <button @click="DeleteImage" v-if = "userId==this.post.userId || isAdmin">Delete the image</button>
+            </div>
+        </div>
+       <div class="flexContent">
+       <div class="content">
+           
            <input type="text" v-model="title" name="title" id="title">
+           <label for="title">Title</label>
        </div>
        
-       <div>
-           <label for="content">Text</label>
+       <div class="content">
+           
            <textarea type="text" v-model="content" name="content" id="content"></textarea>
+           <label for="content">Text</label>
        </div>
-       <div class="postImage">
-              
-            <img :src=post.attachment />
-        </div>
-        
-            <div> <input type="file" name="image" id="image" accept="images/*">
-                <!-- <button @click="ModifyImage" v-if = "userId==this.post.userId || isAdmin">Change the image</button> -->
-       <button @click="DeleteImage" v-if = "userId==this.post.userId || isAdmin">Delete the image</button></div>
-       <div><button @click="ModifyPost" v-if = "userId==this.post.userId || isAdmin">Update my post</button>
-       <button @click="DeletePost">Delete my post</button></div>
+       </div>
+       
+       </div>
+       <div class="content"><button @click="ModifyPost" v-if = "userId==this.post.userId || isAdmin">Update my post</button></div>
+       <div class="content"><button @click="DeletePost" v-if = "userId==this.post.userId || isAdmin">Delete my post</button></div>
        
    </template>
    
@@ -55,15 +62,21 @@
             return res.json()
             }
         })
-        .then(data=>{
-            console.log(data);
-            this.title=data.post.title;
+        .then(data => { 
+            this.post = data.post;
+                 this.title=data.post.title;
             this.content=data.post.content;
             this.image=data.post.attachment;
-            this.post=data.post;
-            console.log(data.post.userId)
+            console.log(this.post.attachment);
+            
+         })
+        // .then(data=>{
+        //     console.log(data);
+       
+        //     this.post=data.post;
+        //     console.log(data.post.userId)
         
-        })
+        // })
         this.userId=JSON.parse(sessionStorage.getItem("data-userId"));
         this.isAdmin=JSON.parse(sessionStorage.getItem("data-isAdmin"));
         console.log(this.userId);
@@ -73,11 +86,52 @@
     },
 
     methods: {
-//    ModifyImage(){
-//     let input=document.getElementById('image');
-//     console.log(input.files[0]);
-//     return this.$router.push({ name: 'home' })
-//    },
+   ModifyImage(){
+    let input=document.getElementById('image');
+            const formData = new FormData();
+        formData.append('image', input.files[0]);
+        formData.append('title', this.title);
+        formData.append('content', this.content);
+        
+           
+            const postID=this.$route.params.postId;
+           //   if (this.email && this.password){
+                
+                 fetch("http://localhost:3000/api/posts/"+postID, {
+                     method: "PATCH",
+                     headers: {
+                     'Accept': 'application/json', 
+                     "Authorization": "Bearer " + JSON.parse(sessionStorage.getItem("data-token"))
+                     },
+                     body: formData
+                 })
+                 .then(res=> {
+                    
+                     if (res.ok) {
+                        
+
+fetch("http://localhost:3000/api/posts/"+postID, {
+        method: "GET",
+        headers: {
+        'Accept': 'application/json', 
+        'Authorization': "Bearer " + JSON.parse(sessionStorage.getItem("data-token"))
+        }})
+    .then(res=> {
+
+        if (res.ok) {
+        return res.json()
+        }
+    })
+    .then(data => { 
+        this.post = data.post;
+             this.title=data.post.title;
+        this.content=data.post.content;
+        this.image=data.post.attachment;
+        console.log(this.post.attachment);
+        
+     })
+               }})
+   },
 //     const formData = new FormData();
 //     formData.append('image', input.files[0]);
 //     const postID=this.$route.params.postId;
@@ -158,8 +212,46 @@
    </script>
    
    <style scoped>
-    img {
+    .postContent{
+        display:flex;
+        flex-direction:row;
+        flex-wrap: wrap;
+    }
+    .flexContent{
+        display:flex;
+        flex-direction:column;
+        width:300px;
+       
+        border: 1px solid #4E5166;
+       padding:10px;
+        margin: 20px;
+    }
+    
+
+    .content{
+        display:flex;
+        flex-direction:row;
+        width:300px;
+        justify-content: space-evenly;
+        margin:20px;
+    }
+    #title, #content{
+        width:200px;
+    }
+    
+    img{
         width: 200px;
+        align-self: center;
+    }
+
+    input{
+        margin : 10px;
+    }
+    button{
+        background-color:#FFD7D7;
+        margin:10px;
+        width:125px;
+        
     }
    
    </style>
