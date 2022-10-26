@@ -1,22 +1,20 @@
 <template>
-    <div class="login">
-      <!-- <img alt="Vue logo" src="../assets/1653474647318_icon-left-font.png"> -->
-      <!-- <SignUp msg="Create an account"/> -->
-      <LogIn/>
-    </div>
-  </template>
+  <!-- <div class="login"> -->
+  <LogIn/>
+  <!-- </div> -->
+</template>
   
-  <script>
+<script>
   // @ is an alias to /src
-  import LogIn from '@/components/LogIn.vue'
+import LogIn from '@/components/LogIn.vue'
   
-  export default {
-    name: 'LoginView',
-    props: {
-        msg:String
-    },
-    components: {
-      LogIn
-    }
+export default {
+  name: 'LoginView',
+  props: {
+    msg:String
+  },
+  components: {
+    LogIn
   }
-  </script>
+}
+</script>
