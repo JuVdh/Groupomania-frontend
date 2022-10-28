@@ -26,24 +26,21 @@ export default {
 }
 </script>
 
-<style scoped>
-/* header {
-display:flex;
-flex-direction: row;
-background-color:#FFD7D7;
-} */
+<style>
 
-#app {
-  font-family: Lato;
-  /* font-family: Avenir, Helvetica, Arial, sans-serif; */
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  /* text-align: center; */
-  color: #4E5166;
-  /* max-width:1600px; */
-  width:100%;
+body{
+  margin:0;
 }
-
+#app {
+  font-family: 'Lato', sans-serif;
+  /* -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale; */
+  /* max-width:1280px; */
+  width:100%;
+  margin:auto;
+  color: #4E5166;
+}
+/* 
 #password {
   margin-left: 10px;
 }
@@ -51,14 +48,21 @@ background-color:#FFD7D7;
 #email {
   margin-left: 33px;
   margin-bottom: 20px;
-}
+} */
 
 nav {
-  padding: 40px;
+  padding-left: 80px;
+  padding-right: 80px;
+  padding-top:40px;
+  padding-bottom:40px;
+  margin-right: 8px;
   background-color: #FFD7D7;
-  max-width: 1200px;
+  /* max-width: 1200px; */
   width:100%;
   margin: auto;
+ 
+
+
 }
 
 nav a {
@@ -78,5 +82,12 @@ nav a.router-link-exact-active {
 img {
   max-width:100%;
   height:auto;
+}
+
+@media screen and (max-width:768px){
+  nav{
+    padding-left: 40px;
+  padding-right: 40px;
+  }
 }
 </style>

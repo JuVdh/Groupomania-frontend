@@ -1,5 +1,9 @@
 <template>
+   
+    <div class="postsList">
   <Post v-for="post in posts" :key="post.id" :post="post"></Post>
+
+</div>
 </template>
 
 <script>
@@ -27,5 +31,9 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
+.postsList {
+  display:flex;
+  flex-direction: column;
+  width:100%;
+}
 </style>

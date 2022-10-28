@@ -1,15 +1,15 @@
 <template>
-  <HelloWorld/>
+  <HomePage/>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import HomePage from '@/components/HomePage.vue'
 
 export default {
   name: 'HomeView',
   components: {
-    HelloWorld
+    HomePage
   },
   beforeCreate(){
     let token=JSON.parse(sessionStorage.getItem('data-token'));
@@ -21,10 +21,7 @@ export default {
 </script>
 
 <style scoped>
-nav {
-  padding: 30px;
-}
-
+/* 
 nav a {
   font-weight: bold;
   color: #4E5166;
@@ -33,5 +30,5 @@ nav a {
 
 nav a.router-link-exact-active {
   color: #FD2D01;
-}
+} */
 </style>

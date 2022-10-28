@@ -196,14 +196,9 @@ export default {
     .postContent{
         display:flex;
         flex-direction:row;
-        flex-wrap: wrap;max-width: 1200px;
-        margin: auto;
+        flex-wrap: wrap;
     }
 
-    h1{
-        max-width:1200px;
-        margin:auto;
-    }
     .flexContent{
         display:flex;
         flex-direction:column;
@@ -216,10 +211,8 @@ export default {
     .content{
         display:flex;
         flex-direction:row;
-        max-width: 1200px;
         width:300px;
         justify-content: space-evenly;
-        margin:auto;
     }
 
     #title, #content{
@@ -234,7 +227,7 @@ export default {
     input{
         margin : 10px;
     }
-    
+
     button{
         background-color:#FFD7D7;
         margin:10px;
