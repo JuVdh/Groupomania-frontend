@@ -149,7 +149,7 @@ export default {
     padding-right: 80px;
     padding-bottom:20px;
     background-color: white;
-    border-bottom: 1px solid #4E5166;
+    border-bottom: 4px solid #FFD7D7;
 }
 
 .headerCard {

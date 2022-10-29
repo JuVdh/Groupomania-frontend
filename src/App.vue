@@ -40,15 +40,20 @@ body{
   margin:auto;
   color: #4E5166;
 }
-/* 
-#password {
-  margin-left: 10px;
-}
 
-#email {
-  margin-left: 33px;
-  margin-bottom: 20px;
-} */
+button {
+  background: none;
+  background-color: #4E5166;
+  border:none;
+  outline:none;
+  font-family: 'Lato', sans-serif;
+  font-size: 16px;
+  font-weight:bold;
+  color:#FFD7D7;
+  border: 1px solid #4E5166;
+  border-radius: 5px;
+  margin:10px;
+}
 
 nav {
   padding-left: 80px;
@@ -77,6 +82,7 @@ nav a.router-link-exact-active {
 
 .plus {
   width: 2%;
+ 
 }
 
 img {
@@ -88,6 +94,10 @@ img {
   nav{
     padding-left: 40px;
   padding-right: 40px;
+  }
+
+  .plus {
+    width:3%;
   }
 }
 </style>
