@@ -18,7 +18,7 @@
   
   <div class="signupRouter">
     <h2>You don't have an account yet? </h2>
-    <router-link to="signup">Please signup</router-link>
+    <button @click="goToSignup">Create an account</button>
   </div>
 </div>
 </template>
@@ -61,7 +61,10 @@ export default {
           return this.$router.push({ name: 'home' })
         })
       } 
-    }  
+    },
+    goToSignup(){
+      this.$router.push({ name: 'signup' }) 
+    }
   }
 }
 </script>
@@ -123,6 +126,7 @@ label {
 
 .email {
   margin-left: 30px;
+
 }
 input {
   width:260px;
@@ -130,6 +134,9 @@ input {
   border:none;
   border: 1px solid #4E5166;
   border-radius: 10px;
+  font-family: 'Lato', sans-serif;
+  font-size: 16px;
+  font-weight:bold;
 }
 
 input:focus {
@@ -140,10 +147,19 @@ input:focus {
 
 .signupRouter {
   display:flex;
-  flex-direction:row;
+  flex-direction:column;
   justify-content: space-between;
+  align-items: center;
   width:100%;
   margin-top: 40px;
+}
+
+.signupRouter button {
+  height: 40px;
+  align-self: center;
+  background-color: #FD2D01;
+  border: 1px solid #FD2D01;
+  color:#FFD7D7;
 }
 
 @media screen and (max-width:768px){
@@ -169,6 +185,10 @@ input:focus {
 
   .signupRouter {
     justify-content: space-evenly;
+  }
+
+  .signupRouter button, h2 {
+    align-self: flex-start;
   }
   
 }

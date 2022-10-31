@@ -8,7 +8,8 @@
             
             <div class="boxCard">
                 <div class="image">
-                    <img :src=post.attachment />
+                    <img :src=post.attachment alt="image"/>
+                   
                 </div>
                 <div class="content">{{post.content}}</div>
             </div>
@@ -209,6 +210,7 @@ h2 {
     box-sizing: border-box;
     padding:10px;
     font-size: 18px;
+    font-weight: bold;
 }
 
 .likesComp{

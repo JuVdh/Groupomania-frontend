@@ -119,6 +119,9 @@ input {
   border:none;
   border: 1px solid #4E5166;
   border-radius: 10px;
+  font-family: 'Lato', sans-serif;
+  font-size: 16px;
+  font-weight:bold;
 }
 
 input:focus {

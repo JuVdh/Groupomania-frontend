@@ -4,7 +4,17 @@
   <img alt="Logo Groupomania" src="./assets/1653474647318_icon-left-font.png"> 
   
   <nav>
-    <router-link to="/new"><img class="plus" alt="icone plus to create a new post" src="./assets/Plus.png"></router-link>
+    
+    <!-- <router-link to="/new"> -->
+      <!-- <div class="plus"> -->
+      <!-- <img class="plus" alt="icone plus to create a new post" src="./assets/Plus.png"> -->
+      <svg @click="addPost">
+        <path d="M10,0 V20 M-10,10 H20" stroke-width="3px" stroke="#4E5166" stroke-opacity="1"/>
+        
+      </svg>
+    <!-- </div>  -->
+    <!-- </router-link> -->
+ 
     <router-link to="/">Home</router-link> 
     <router-link to="/signup">Signup</router-link>
     <router-link to="/login">Login</router-link>
@@ -21,6 +31,9 @@ export default {
     Logout(){
       sessionStorage.clear();
       return this.$router.push({ name: 'login' })
+    },
+    addPost(){
+      return this.$router.push({name: 'new'})
     }
   }
 }
@@ -62,8 +75,10 @@ nav {
   padding-bottom:40px;
   margin-right: 8px;
   background-color: #FFD7D7;
+  /* filter:brightness(1.1); */
   /* max-width: 1200px; */
   width:100%;
+  height:40px;
   margin: auto;
  
 
@@ -74,16 +89,20 @@ nav a {
   font-weight: bold;
   color: #4E5166;
   margin:10px;
+ 
+
 }
 
 nav a.router-link-exact-active {
   color: #FD2D01;
+  /* filter:brightness(0.6); */
 }
 
-.plus {
-  width: 2%;
- 
-}
+svg {
+  
+    width:20px;
+    height:20px;
+} 
 
 img {
   max-width:100%;
@@ -96,8 +115,6 @@ img {
   padding-right: 40px;
   }
 
-  .plus {
-    width:3%;
-  }
+  
 }
 </style>

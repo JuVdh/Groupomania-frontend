@@ -1,33 +1,41 @@
 <template>
-    <div>
-        <h1>{{ msg }}</h1>
-    </div>
-
+    
     <div class="postContent">
-
         <div class="flexContent">
-            <img :src=this.post.attachment />
-            <div><input type="file" name="image" id="image" accept="images/*"></div>
-            <div>
-                <button @click="ModifyImage" v-if = "userId==this.post.userId || isAdmin">Change the image</button>
-                <button @click="DeleteImage" v-if = "userId==this.post.userId || isAdmin">Delete the image</button>
+            <div class="title">
+                <label for="title">Title</label>
+                <input type="text" v-model="title" name="title" id="title">
+                
+            </div>
+        <!-- <div class="flexContent"> -->
+            <div class="image">
+                <label for="image">Image</label>
+                <img :src=this.post.attachment alt="image" />
+            </div>
+            <div class="changeImage">
+            <input type="file" name="image" id="image" accept="images/*">
+            <div class="changeBtns">
+                <button @click="ModifyImage" v-if = "userId==this.post.userId || isAdmin">Change image</button>
+                <button @click="DeleteImage" v-if = "userId==this.post.userId || isAdmin">Delete image</button>
+            </div>
             </div>
         </div>
-
+   
        <div class="flexContent">
-            <div class="content">
-                <input type="text" v-model="title" name="title" id="title">
-                <label for="title">Title</label>
-            </div>
-            <div class="content">
-                <textarea type="text" v-model="content" name="content" id="content"></textarea>
+            
+            <div class="text">
                 <label for="content">Text</label>
+                <textarea type="text" v-model="content" name="content" id="content"></textarea>
+                
             </div>
+            <div class="content">
+                <button @click="ModifyPost" v-if = "userId==this.post.userId || isAdmin">Update my post</button>
+    <button @click="DeletePost" v-if = "userId==this.post.userId || isAdmin">Delete my post</button></div>
        </div>
     </div>
+    
 
-    <div class="content"><button @click="ModifyPost" v-if = "userId==this.post.userId || isAdmin">Update my post</button></div>
-    <div class="content"><button @click="DeletePost" v-if = "userId==this.post.userId || isAdmin">Delete my post</button></div>
+   
 </template>
    
 <script>
@@ -197,40 +205,175 @@ export default {
         display:flex;
         flex-direction:row;
         flex-wrap: wrap;
+        margin-left:80px;
+ 
+  padding:20px;
     }
 
     .flexContent{
         display:flex;
         flex-direction:column;
         width:300px;
-        border: 1px solid #4E5166;
+        
         padding:10px;
         margin: 20px;
     }
     
     .content{
         display:flex;
-        flex-direction:row;
+        flex-direction:column;
         width:300px;
-        justify-content: space-evenly;
+        align-items: center;
     }
 
-    #title, #content{
-        width:200px;
+    .content button {
+        height: 40px;
+ 
+  background-color: #FD2D01;
+  border: 1px solid #FD2D01;
+  color:#FFD7D7;
+        width:180px;
     }
+
     
-    img{
-        width: 200px;
+    /* #title, #content{
+        width:200px;
+    } */
+
+    .title, .image{
+  display:flex;
+  flex-direction:row;
+  justify-content: flex-start;
+  margin-top:20px;
+}
+
+.text {
+    display:flex;
+    flex-direction:column;
+    justify-content: flex-start;
+    margin-top: 20px;
+   
+    
+}
+
+textarea {
+  background: none;
+  background-color: #FFD7D7;
+  border:none;
+  outline:none;
+  font-family: 'Lato', sans-serif;
+  font-size: 16px;
+  font-weight:bold;
+  color:#4E5166;
+  border: 1px solid #4E5166;
+  border-radius: 10px;
+  margin:10px;
+  width:290px;
+  height:200px;
+  margin:0;
+}
+
+.changeImage {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    margin-left: 10px;
+    margin-top: 20px;
+}
+
+label {
+  margin-right: 10px;
+ font-weight: bold;
+ width:50px;
+
+}
+
+.text label {
+    margin-right:0;
+    width:50px;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+
+input {
+  width:300px;
+  height:40px;
+  border:none;
+  background: none;
+  border: 1px solid #4E5166;
+  background-color: #FFD7D7;
+  border-radius: 10px;
+  font-family: 'Lato', sans-serif;
+  color:#4E5166;
+  font-size: 16px;
+  font-weight:bold;
+}
+
+.changeImage input {
+  
+  border:none;
+  background: none;
+  border-radius: 0;
+  
+}
+
+    
+    .image img{
+        width: 240px;
         align-self: center;
     }
+    input:focus {
+  border:none;
+ outline:none;
+  border:3px solid #FD2D01;
+}
+textarea:focus {
+  border:none;
+ outline:none;
+  border:3px solid #FD2D01;
+}
 
-    input{
-        margin : 10px;
+.changeImage input:focus {
+  border:none;
+  outline:none;
+}
+.changeBtns{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.changeBtns button{
+    margin: 0;
+    margin-left: 10px;
+}
+
+
+   
+@media screen and (max-width:840px){
+
+    .flexContent {
+        margin:0;
+    }
+    .text {
+        display:flex;
+        flex-direction:row;
+       
     }
 
-    button{
+    textarea {
+        width: 240px;
+    }
+
+    .postContent {
+        margin:0;
+    }
+}
+
+    /* button{
         background-color:#FFD7D7;
         margin:10px;
         width:125px;
-    }
+    } */
 </style>
