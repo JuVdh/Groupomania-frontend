@@ -6,36 +6,36 @@ import NewView from '../views/NewView.vue'
 import OpenView from '../views/OpenView.vue'
 
 const routes = [
-  {
-    path: '/',
-    name: 'home',
-    component: HomeView
-  },
-  {
-    path: '/signup',
-    name: 'signup',
-    component: SignupView
-  },
-  {
-    path: '/login',
-    name: 'login',
-    component: LoginView
-  },
-  {
-    path: '/new',
-    name: 'new',
-    component: NewView
-  },
-  {
-    path: '/openPost/:postId',
-    name: 'openPost',
-    component: OpenView
-  }
+	{
+		path: '/',
+		name: 'home',
+		component: HomeView
+	},
+	{
+		path: '/signup',
+		name: 'signup',
+		component: SignupView
+	},
+	{
+		path: '/login',
+		name: 'login',
+		component: LoginView
+	},
+	{
+		path: '/new',
+		name: 'new',
+		component: NewView
+	},
+	{
+		path: '/openPost/:postId',
+		name: 'openPost',
+		component: OpenView
+	}
 ]
 
 const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
-  routes
+	history: createWebHistory(process.env.BASE_URL),
+	routes
 })
 
 export default router

@@ -1,195 +1,161 @@
 <template>
-  <div class="title"><h1>{{ msg }}</h1></div>
-  <div class="connexion">
-      <div class="email">
-		<label for="email">Email</label>
-		<input type="text" v-model="email" id="email">
-    
-  </div>
- 
-    
-  <div class="pwd">
-		<label for="password">Password</label>
-		<input type="password" v-model="password" id="password">
-  </div>
-  
-  
-  <button @click="logIn">To log in</button>
-  
-  <div class="signupRouter">
-    <h2>You don't have an account yet? </h2>
-    <button @click="goToSignup">Create an account</button>
-  </div>
-</div>
+	<div class="headerTitle"><h1>{{ msg }}</h1></div>
+	<div class="connexion">
+		<div class="email">
+			<label for="email">Email</label>
+			<input type="text" v-model="email" id="email">
+		</div>
+		<div class="pwd">
+			<label for="password">Password</label>
+			<input type="password" v-model="password" id="password">
+		</div>
+		<button @click="logIn">To log in</button>
+		<div class="signupRouter">
+			<h2>You don't have an account yet?</h2>
+			<button @click="goToSignup">Create an account</button>
+		</div>
+	</div>
 </template>
 
 <script>
 export default {
-  data() {
-    return {
-      msg: 'Connexion',
-      email: '', 
-      password: ''
-    }
-  }, 
-  methods: {
-    logIn(){
-      let user = {
-        email: this.email,
-        password: this.password
-      };
+	data() {
+		return {
+			msg: 'Connexion',
+			email: '', 
+			password: ''
+		}
+	}, 
+	methods: {
+		logIn(){
+			let user = {
+				email: this.email,
+				password: this.password
+			};
 
-      if (this.email && this.password){
-      // if password correct?       
-        fetch("http://localhost:3000/api/auth/login", {
-          method: "POST",
-          headers: {
-            'Accept': 'application/json', 
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(user)
-        })
-        .then(res=> {
-          if (res.ok) {
-            return res.json()
-          }
-        })
-        .then(data=>{
-          sessionStorage.setItem('data-token', JSON.stringify(data.token));
-          sessionStorage.setItem('data-userId', JSON.stringify(data.userId));
-          sessionStorage.setItem('data-isAdmin', JSON.stringify(data.isAdmin));
-          return this.$router.push({ name: 'home' })
-        })
-      } 
-    },
-    goToSignup(){
-      this.$router.push({ name: 'signup' }) 
-    }
-  }
+			if (this.email && this.password){
+			// if password correct?       
+				fetch("http://localhost:3000/api/auth/login", {
+				method: "POST",
+				headers: {
+					'Accept': 'application/json', 
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify(user)
+				})
+				.then(res=> {
+				if (res.ok) {
+					return res.json()
+				}
+				})
+				.then(data=>{
+				sessionStorage.setItem('data-token', JSON.stringify(data.token));
+				sessionStorage.setItem('data-userId', JSON.stringify(data.userId));
+				sessionStorage.setItem('data-isAdmin', JSON.stringify(data.isAdmin));
+				return this.$router.push({ name: 'home' })
+				})
+			}
+		},
+		goToSignup(){
+			this.$router.push({ name: 'signup' }) 
+		}
+	}
 }
 </script>
 
 <style scoped>
-
-.connexion {
-  display:flex;
-  flex-direction: column;
-  justify-content:space-between;
-  width:360px;
-  margin-left:80px;
-  border-radius: 10px ;
-  background-color: #FFD7D7;
-  padding:20px;
+.headerTitle {
+	width:360px;
+	padding:20px;
+	margin-left:80px;
+	margin-top:40px;
 }
-
-.title {
- 
-  margin-left:80px;
-  margin-top:40px;
-  width:360px;
-  padding:20px;
- 
-}
-
 h1 {
-  margin:0px;
-  font-style: italic;
+	margin:0;
+	font-style: italic;
 }
-
-h2 {
-  margin:0;
-  font-size:16px;
-  
+.connexion {
+	display:flex;
+	flex-direction: column;
+	justify-content:space-between;
+	width:360px;
+	padding:20px;
+	margin-left:80px;
+	border-radius: 10px ;
+	background-color: #FFD7D7;
 }
-
-button {
-  align-self: flex-end;
-  margin-top: 20px;
-}
-#pwd {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-
-  
-}
-
+/* erreur syntaxe à corriger */
 .email, .pwd {
-  margin-top:20px;
+	margin-top:20px;
 }
-
-label {
-  margin-right: 10px;
-  font-weight: bold;
-}
-
-
 .email {
-  margin-left: 30px;
-
+	margin-left: 30px;
+}
+label {
+	margin-right: 10px;
+	font-weight: bold;
 }
 input {
-  width:260px;
-  height:40px;
-  border:none;
-  border: 1px solid #4E5166;
-  border-radius: 10px;
-  font-family: 'Lato', sans-serif;
-  font-size: 16px;
-  font-weight:bold;
+	width:260px;
+	height:40px;
+	border:none;
+	border: 1px solid #4E5166;
+	border-radius: 10px;
+	font-family: 'Lato', sans-serif;
+	font-size: 16px;
+	font-weight:bold;
 }
-
 input:focus {
-  border:none;
- outline:none;
-  border:3px solid #FD2D01;
+	border:none;
+	outline:none;
+	border:3px solid #FD2D01;
 }
-
+button {
+	align-self: flex-end;
+	margin-top: 20px;
+}
 .signupRouter {
-  display:flex;
-  flex-direction:column;
-  justify-content: space-between;
-  align-items: center;
-  width:100%;
-  margin-top: 40px;
+	display:flex;
+	flex-direction:column;
+	justify-content: space-between;
+	align-items: center;
+	width:100%;
+	margin-top: 40px;
 }
-
+h2 {
+	margin:0;
+	font-size:16px;
+}
 .signupRouter button {
-  height: 40px;
-  align-self: center;
-  background-color: #FD2D01;
-  border: 1px solid #FD2D01;
-  color:#FFD7D7;
+	height: 40px;
+	align-self: center;
+	background-color: #FD2D01;
+	color:#FFD7D7;
+	border: 1px solid #FD2D01;
 }
 
 @media screen and (max-width:768px){
-  .connexion {
-    margin-left:0px;
-    width:100%;
-    border-radius: 0;
-
-  }
-
-  .title {
-    margin-left: 0px;
-  }
-
-  input {
-    width:200px;
-  }
-
-  button {
-    align-self:flex-start;
-    margin-left: 80px;
-  }
-
-  .signupRouter {
-    justify-content: space-evenly;
-  }
-
-  .signupRouter button, h2 {
-    align-self: flex-start;
-  }
-  
+	.headerTitle {
+		margin-left: 0px;
+	}
+	.connexion {
+		width:100%;
+		margin-left:0px;
+		border-radius: 0;
+	}
+	input {
+		width:200px;
+	}
+	button {
+		align-self:flex-start;
+		margin-left: 80px;
+	}
+	.signupRouter {
+		justify-content: space-evenly;
+	}
+	/* erreur syntaxe à corriger */
+	.signupRouter button, h2 {
+		align-self: flex-start;
+	}
 }
 </style>
