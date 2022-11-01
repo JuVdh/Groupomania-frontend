@@ -71,7 +71,6 @@ h1 {
 	margin-left:80px;
 	padding:20px;
 }
-/* !!!!!!!!!!!!!!erreur!!!!!!!!!!!*/
 .title,.text,.image {
 	display:flex;
 	flex-direction:row;
@@ -83,7 +82,7 @@ label {
 	margin-right: 10px;
 	font-weight: bold;
 }
-input {
+.title input {
 	width:300px;
 	height:40px;
 	border:none;
@@ -94,14 +93,13 @@ input {
 	font-family: 'Lato', sans-serif;
 	font-size: 16px;
 	font-weight:bold;
+	color: #4E5166;
 }
-/* a fusionner avec textarea:focus */
 input:focus {
 	border:none;
 	outline:none;
 	border:3px solid #FD2D01;
 }
-/* pb margin */
 textarea {
 	width:300px;
 	height:200px;
@@ -115,8 +113,6 @@ textarea {
 	color:#4E5166;
 	border: 1px solid #4E5166;
 	border-radius: 10px;
-	margin:10px;
-	margin:0;
 }
 textarea:focus {
 	border:none;

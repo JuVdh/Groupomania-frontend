@@ -7,11 +7,10 @@
 			</div>
 			<div class="image">
 				<label for="image">Image</label>
-				<img :src=this.post.attachment alt="image" />
+				<img :src=this.post.attachment />
 			</div>
 			<div class="changeImage">
-				<!-- <label for="image"></label> -->
-				<input type="file" name="image" id="image" accept="images/*">
+				<input v-if = "userId==this.post.userId || isAdmin" type="file" aria-label="input new image" name="image" id="image" accept="images/*">
 				<div class="changeBtns">
 					<button @click="ModifyImage" v-if = "userId==this.post.userId || isAdmin">Change image</button>
 					<button @click="DeleteImage" v-if = "userId==this.post.userId || isAdmin">Delete image</button>
@@ -30,7 +29,7 @@
 		</div>
 	</div>
 </template>
-<!-- mettre code getPost dans methods -->
+
 <script>
 export default {
 	data() {
@@ -40,30 +39,12 @@ export default {
 			content: '',
 			image: null,
 			userId: '',
-			isAdmin: '',
+			isAdmin: false,
 			post: {}
 		}
 	},
 	created(){
-		const postID=this.$route.params.postId;
-		fetch("http://localhost:3000/api/posts/"+postID, {
-			method: "GET",
-			headers: {
-				'Accept': 'application/json',
-				'Authorization': "Bearer " + JSON.parse(sessionStorage.getItem("data-token"))
-			}
-		})
-		.then(res=> {
-			if (res.ok) {
-				return res.json()
-			}
-		})
-		.then(data => {
-			this.post = data.post;
-			this.title=data.post.title;
-			this.content=data.post.content;
-			this.image=data.post.attachment;
-		})
+		this.getPostInfos();
 		this.userId=JSON.parse(sessionStorage.getItem("data-userId"));
 		this.isAdmin=JSON.parse(sessionStorage.getItem("data-isAdmin"));
 	},
@@ -75,7 +56,6 @@ export default {
 			formData.append('title', this.title);
 			formData.append('content', this.content);
 			const postID=this.$route.params.postId;
-			//if ...?
 			fetch("http://localhost:3000/api/posts/"+postID, {
 				method: "PATCH",
 				headers: {
@@ -86,24 +66,7 @@ export default {
 			})
 			.then(res=> {
 				if (res.ok) {
-					fetch("http://localhost:3000/api/posts/"+postID, {
-						method: "GET",
-						headers: {
-							'Accept': 'application/json',
-							'Authorization': "Bearer " + JSON.parse(sessionStorage.getItem("data-token"))
-						}
-					})
-					.then(res=> {
-						if (res.ok) {
-							return res.json()
-						}
-					})
-					.then(data => {
-						this.post = data.post;
-						this.title=data.post.title;
-						this.content=data.post.content;
-						this.image=data.post.attachment;
-					})
+					this.getPostInfos();
 				}
 			})
 		},
@@ -123,24 +86,7 @@ export default {
 			})
 			.then(res=> {
 				if (res.ok) {
-					fetch("http://localhost:3000/api/posts/"+postID, {
-						method: "GET",
-						headers: {
-							'Accept': 'application/json',
-							'Authorization': "Bearer " + JSON.parse(sessionStorage.getItem("data-token"))
-						}
-					})
-					.then(res=> {
-						if (res.ok) {
-							return res.json()
-						}
-					})
-					.then(data => {
-						this.post = data.post;
-						this.title=data.post.title;
-						this.content=data.post.content;
-						this.image=data.post.attachment;
-					})
+					this.getPostInfos();
 				}
 			})
 		},
@@ -179,6 +125,27 @@ export default {
 					return this.$router.push({ name: 'home' })
 				}
 			})
+		}, 
+		getPostInfos(){
+			const postID=this.$route.params.postId;
+			fetch("http://localhost:3000/api/posts/"+postID, {
+						method: "GET",
+						headers: {
+							'Accept': 'application/json',
+							'Authorization': "Bearer " + JSON.parse(sessionStorage.getItem("data-token"))
+						}
+					})
+					.then(res=> {
+						if (res.ok) {
+							return res.json()
+						}
+					})
+					.then(data => {
+						this.post = data.post;
+						this.title=data.post.title;
+						this.content=data.post.content;
+						this.image=data.post.attachment;
+					})
 		}
 	}
 }
@@ -199,7 +166,6 @@ export default {
 	padding:10px;
 	margin: 20px;
 }
-/* erreur syntaxe */
 .title, .image{
 	display:flex;
 	flex-direction:row;
@@ -270,7 +236,6 @@ input:focus {
 	margin-bottom: 10px;
 	font-weight: bold;
 }
-/* margin?*/
 textarea {
 	width:290px;
 	height:200px;
@@ -284,8 +249,6 @@ textarea {
 	font-size: 16px;
 	font-weight:bold;
 	color:#4E5166;
-	margin:10px;
-	margin:0;
 }
 textarea:focus {
 	border:none;
@@ -306,7 +269,7 @@ textarea:focus {
 	color:#FFD7D7;
 }
 @media screen and (max-width:840px){
-	.postContent .flexContent{
+	.postContent, .flexContent{
 		margin:0;
 	}
 	.text {

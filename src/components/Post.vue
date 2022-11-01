@@ -7,7 +7,7 @@
 			</div>
 			<div class="boxCard">
 				<div class="image">
-					<img :src=post.attachment alt="image"/>
+					<img :src=post.attachment />
 				</div>
 				<div class="content">{{post.content}}</div>
 			</div>
@@ -23,13 +23,11 @@
 					</svg>
 				</div>
 			</div>
-			<!-- <label for="likeCount"></label> -->
-			<input type="number" v-model="likeCount" name="likeCount" id="likeCount">
+			<input type="number" aria-label="likeCount" v-model="likeCount" name="likeCount" id="likeCount">
 		</div>
 	</div>
 </template>
 
-<!-- fetchs à mettre dans methods -->
 <script>
 export default {
 	name: "PostComp",
@@ -46,26 +44,7 @@ export default {
 		}
 	},
 	created(){
-		const postID=this.post.id;
-		const postPath="http://localhost:3000/api/posts/"+postID;
-		const likesPath=postPath+"/likes/";
-		fetch(likesPath, {
-			method: "GET",
-			headers: {
-				'Accept': 'application/json',
-				'Content-Type': 'application/json',
-				'Authorization': "Bearer " + JSON.parse(sessionStorage.getItem("data-token"))
-			}
-		})
-		.then(res=> {
-			if (res.ok) {
-				return res.json()
-			}
-		})
-		.then(data => {
-			this.likeCount=data.likeCount;
-			this.alreadyLiked=data.alreadyLiked;
-		})
+		this.getLikes();
 	},
 	methods:{
 		updateLikesNb(){
@@ -76,21 +55,7 @@ export default {
 				likes:1
 			};
 			if (this.alreadyLiked){
-				// window.alert("you have already liked this post");
-				fetch(likesPath, {
-					method: "DELETE",
-					headers: {
-						'Accept': 'application/json',
-						'Content-Type': 'application/json',
-						'Authorization': "Bearer " + JSON.parse(sessionStorage.getItem("data-token"))
-					}
-				})
-				.then (res=>{
-					if (res.ok){
-						this.alreadyLiked=false;
-						this.likeCount-=1;
-					}
-				})
+				this.deleteLike();
 			}
 			else {
 				fetch(likesPath, {
@@ -104,30 +69,51 @@ export default {
 				})
 				.then(res=> {
 					if (res.ok) {
-						const postID=this.post.id;
-						const postPath="http://localhost:3000/api/posts/"+postID;
-						const likesPath=postPath+"/likes/";
-						fetch(likesPath, {
-							method: "GET",
-							headers: {
-								'Accept': 'application/json',
-								'Content-Type': 'application/json',
-								'Authorization': "Bearer " + JSON.parse(sessionStorage.getItem("data-token"))
-							}
-						})
-						.then(res=> {
-							if (res.ok) {
-								return res.json()
-							}
-						})
-						.then(data => {
-							this.likeCount=data.likeCount;
-							this.alreadyLiked=data.alreadyLiked;
-							this.disliked=false;
-						})
+						this.getLikes();
 					}
 				})
 			}
+		},
+		getLikes(){
+			const postID=this.post.id;
+			const postPath="http://localhost:3000/api/posts/"+postID;
+			const likesPath=postPath+"/likes/";
+			fetch(likesPath, {
+				method: "GET",
+				headers: {
+					'Accept': 'application/json',
+					'Content-Type': 'application/json',
+					'Authorization': "Bearer " + JSON.parse(sessionStorage.getItem("data-token"))
+				}
+			})
+			.then(res=> {
+				if (res.ok) {
+					return res.json()
+				}
+			})
+			.then(data => {
+				this.likeCount=data.likeCount;
+				this.alreadyLiked=data.alreadyLiked;
+			})
+		},
+		deleteLike(){
+			const postID=this.post.id;
+			const postPath="http://localhost:3000/api/posts/"+postID;
+			const likesPath=postPath+"/likes/";
+			fetch(likesPath, {
+				method: "DELETE",
+				headers: {
+					'Accept': 'application/json',
+					'Content-Type': 'application/json',
+					'Authorization': "Bearer " + JSON.parse(sessionStorage.getItem("data-token"))
+				}
+			})
+			.then (res=>{
+				if (res.ok){
+					this.alreadyLiked=false;
+					this.likeCount-=1;
+				}
+			})
 		}
 	}
 }
@@ -157,7 +143,6 @@ h2 {
 	font-size: 20px;
 	font-style:italic;
 }
-/* a verifier */
 .postsList a {
 	width:100%;
 	color:#4E5166;
@@ -223,13 +208,16 @@ svg {
 }
 #likeCount{
 	border:none;
+	font-family: 'Lato', sans-serif;
+	font-size: 16px;
+	font-weight:bold;
+	color:#4E5166;
 }
 @media screen and (max-width:768px){
 	.posts{
-		padding-left: 40px;
+		padding-left: 10px;
 		padding-right: 40px;
 	}
-	/* erreur syntaxe */
 	.headerCard, .boxCard, .likesComp {
 		width:360px;
 		margin: auto;

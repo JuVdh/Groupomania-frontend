@@ -71,7 +71,6 @@ h1 {
 	border-radius: 10px;
 	background-color: #FFD7D7;
 }
-/* erreur syntaxe a corriger */
 .email, .pwd {
 	margin-top:20px;
 }
@@ -82,7 +81,7 @@ label {
 	margin-right: 10px;
 	font-weight: bold;
 }
-input {
+.email input, .pwd input {
 	width:260px;
 	height:40px;
 	border:none;
@@ -91,6 +90,7 @@ input {
 	font-family: 'Lato', sans-serif;
 	font-size: 16px;
 	font-weight:bold;
+	color: #4E5166;
 }
 input:focus {
 	border:none;

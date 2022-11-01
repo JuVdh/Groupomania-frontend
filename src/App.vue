@@ -59,7 +59,6 @@ nav {
 	padding-top:40px;
 	padding-bottom:40px;
 	background-color: #FFD7D7;
-	/* filter:brightness(1.1); */
 }
 nav a {
 	font-weight: bold;
@@ -68,7 +67,6 @@ nav a {
 }
 nav a.router-link-exact-active {
 	color: #FD2D01;
-	/* filter:brightness(0.6); */
 }
 svg {
 	width:20px;

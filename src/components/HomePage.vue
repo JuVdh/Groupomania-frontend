@@ -21,7 +21,7 @@ export default {
 			}
 		})
 		.then(res => res.json())
-		.then(data => { this.posts = data; });
+		.then(data => { this.posts=data; });
 	},
 	components: { Post }
 }

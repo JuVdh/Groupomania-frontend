@@ -34,25 +34,24 @@ export default {
 			};
 
 			if (this.email && this.password){
-			// if password correct?       
 				fetch("http://localhost:3000/api/auth/login", {
-				method: "POST",
-				headers: {
-					'Accept': 'application/json', 
-					'Content-Type': 'application/json'
-				},
-				body: JSON.stringify(user)
+					method: "POST",
+					headers: {
+						'Accept': 'application/json',
+						'Content-Type': 'application/json'
+					},
+					body: JSON.stringify(user)
 				})
 				.then(res=> {
-				if (res.ok) {
-					return res.json()
-				}
+					if (res.ok) {
+						return res.json()
+					}
 				})
 				.then(data=>{
-				sessionStorage.setItem('data-token', JSON.stringify(data.token));
-				sessionStorage.setItem('data-userId', JSON.stringify(data.userId));
-				sessionStorage.setItem('data-isAdmin', JSON.stringify(data.isAdmin));
-				return this.$router.push({ name: 'home' })
+					sessionStorage.setItem('data-token', JSON.stringify(data.token));
+					sessionStorage.setItem('data-userId', JSON.stringify(data.userId));
+					sessionStorage.setItem('data-isAdmin', JSON.stringify(data.isAdmin));
+					return this.$router.push({ name: 'home' })
 				})
 			}
 		},
@@ -84,7 +83,6 @@ h1 {
 	border-radius: 10px ;
 	background-color: #FFD7D7;
 }
-/* erreur syntaxe à corriger */
 .email, .pwd {
 	margin-top:20px;
 }
@@ -95,7 +93,7 @@ label {
 	margin-right: 10px;
 	font-weight: bold;
 }
-input {
+.email input, .pwd input {
 	width:260px;
 	height:40px;
 	border:none;
@@ -104,6 +102,7 @@ input {
 	font-family: 'Lato', sans-serif;
 	font-size: 16px;
 	font-weight:bold;
+	color: #4E5166;
 }
 input:focus {
 	border:none;
@@ -133,7 +132,6 @@ h2 {
 	color:#FFD7D7;
 	border: 1px solid #FD2D01;
 }
-
 @media screen and (max-width:768px){
 	.headerTitle {
 		margin-left: 0px;
@@ -153,7 +151,6 @@ h2 {
 	.signupRouter {
 		justify-content: space-evenly;
 	}
-	/* erreur syntaxe à corriger */
 	.signupRouter button, h2 {
 		align-self: flex-start;
 	}
